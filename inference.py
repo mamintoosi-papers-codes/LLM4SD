@@ -42,6 +42,18 @@ def get_hf_tokenizer_pipeline(model, is_8bit=False):
     quantization_config = None
     if is_8bit:
         quantization_config = BitsAndBytesConfig(load_in_8bit=True, llm_int8_threshold=200.0,)
+
+    # M. Amintoosi    
+    if model in ["galactica-6.7b", "galactica-30b"]:
+        tokenizer = AutoTokenizer.from_pretrained(hf_model)
+        pipeline = AutoModelForCausalLM.from_pretrained(
+            hf_model,
+            torch_dtype=torch.float16,
+            device_map="auto",
+            offload_folder="/content/model_weights",  # Offload weights explicitly
+            use_safetensors=True  # Ensure safetensors compatibility
+        )
+
     if model == "chemllm-7b":
         pipeline = AutoModelForCausalLM.from_pretrained(hf_model, torch_dtype=torch.float16,
                                                         device_map="auto", trust_remote_code=True)
