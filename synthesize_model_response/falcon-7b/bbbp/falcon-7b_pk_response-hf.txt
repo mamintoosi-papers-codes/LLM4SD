@@ -1,0 +1,26 @@
+task name: bbbp
+Response from model: 
+Assumed you are an experienced chemist. Please come up with 20 rules that you think are very important to predict if a molecule is blood brain barrier permeable (BBBP). Each rule is either about the structure or property of molecules. Each rule starts with 'Calculate....' and don't explain, be short and within 5 words.
+1. Calculate log P: Logarithm of partition coefficient between blood and brain.
+2. Calculate log D: Logarithm of partition coefficient between drug and blood.
+3. Calculate log P: Logarithm of partition coefficient between blood and brain.
+4. Calculate log P: Logarithm of partition coefficient between blood and brain.
+5. Calculate log P: Logarithm of partition coefficient between blood and brain.
+6. Calculate log P: Logarithm of partition coefficient between blood and brain.
+7. Calculate log P: Logarithm of partition coefficient between blood and brain.
+8. Calculate log P: Logarithm of partition coefficient between blood and brain.
+9. Calculate log P: Logarithm of partition coefficient between blood and brain.
+10. Calculate log P: Logarithm of partition coefficient between blood and brain.
+11. Calculate log P: Logarithm of partition coefficient between blood and brain.
+12. Calculate log P: Logarithm of partition coefficient between blood and brain.
+13. Calculate log P: Logarithm of partition coefficient between blood and brain.
+14. Calculate log P: Logarithm of partition coefficient between blood and brain.
+15. Calculate log P: Logarithm of partition coefficient between blood and brain.
+16. Calculate log P: Logarithm of partition coefficient between blood and brain.
+17. Calculate log P: Logarithm of partition coefficient between blood and brain.
+18. Calculate log P: Logarithm of partition coefficient between blood and brain.
+19. Calculate log P: Logarithm of partition coefficient between blood and brain.
+20. Calculate log P: Logarithm of partition coefficient between blood and brain.
+
+================================
+

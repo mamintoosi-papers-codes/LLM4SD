@@ -1,0 +1,16 @@
+ Volume in drive D is New Volume
+ Volume Serial Number is 2430-717C
+
+ Directory of D:\git\mamintoosi-papers-codes\LLM4SD\eval_code_generation_repo
+
+05/14/2025  06:46 AM    <DIR>          .
+05/13/2025  12:35 PM    <DIR>          ..
+05/13/2025  11:29 AM    <DIR>          chemdfm
+05/13/2025  11:29 AM    <DIR>          chemllm-7b
+05/13/2025  11:29 AM    <DIR>          falcon-40b
+05/13/2025  11:29 AM    <DIR>          falcon-7b
+05/13/2025  11:29 AM    <DIR>          galactica-30b
+05/13/2025  11:29 AM    <DIR>          galactica-6.7b
+05/14/2025  06:46 AM                 0 list.txt
+               1 File(s)              0 bytes
+               8 Dir(s)  67,611,856,896 bytes free
