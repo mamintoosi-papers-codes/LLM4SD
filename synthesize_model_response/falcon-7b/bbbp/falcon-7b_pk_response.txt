@@ -1,25 +1,25 @@
 Task Name: bbbp
 Response from Model:
-1. Calculate the molecular formula (no explanation)
-2. Calculate the number of valence electrons (no explanation)
-3. Calculate the electronegativity of each atom (no explanation)
-4. Calculate the atomic number of each atom (no explanation)
-5. Calculate the number of rotational isomers (no explanation)
-6. Calculate the number of trans rotational isomers (no explanation)
-7. Calculate the number of non-standard rotational isomers (no explanation)
-8. Calculate the number of electron groups in each atom (no explanation)
-9. Calculate the number of oxygen atoms in the molecule (no explanation)
-10. Calculate the number of nitrogen atoms in the molecule (no explanation)
-11. Calculate the number of hydrogen atoms in the molecule (no explanation)
-12. Calculate the number of carbon atoms in the molecule (no explanation)
-13. Calculate the number of chlorine atoms in the molecule (no explanation)
-14. Calculate the number of bromine atoms in the molecule (no explanation)
-15. Calculate the number of iodine atoms in the molecule (no explanation)
-16. Calculate the number of nitrogen atoms in the molecule (no explanation)
-17. Calculate the number of oxygen atoms in the molecule (no explanation)
-18. Calculate the number of chlorine atoms in the molecule (no explanation)
-19. Calculate the number of oxygen atoms in the molecule (no explanation)
-20. Calculate the number of nitrogen atoms in the molecule (no explanation)
+1. Calculate log P: Logarithm of partitioning coefficient.
+2. Estimate BB: The expected BB value of the molecule based on its structure.
+3. Calculate lipophilic %: The proportion of polar and non-polar atoms in the molecule.
+4. Estimate pol: Calculate the polar index of the molecule.
+5. Calculate size: Estimate the size of the molecule.
+6. Calculate volume: Estimate the volume of the molecule.
+7. Estimate pol: Calculate the polar index of the molecule.
+8. Estimate BB: Estimate the BB value of the molecule based on its structure.
+9. Estimate lipo: Estimate the lipophilic content of the molecule.
+10. Evaluate NPS (nonpolar): Estimate the nonpolar nature of the molecule.
+11. Estimate BB: Estimate the BB value of the molecule based on its structure.
+12. Estimate pol: Calculate the polar index of the molecule.
+13. Estimate BB: Estimate the BB value of the molecule based on its structure.
+14. Estimate BB: Estimate the BB value of the molecule based on its structure.
+15. Estimate lipo: Estimate the lipophilic content of the molecule.
+16. Estimate pol: Calculate the polar index of the molecule.
+17. Estimate BB: Estimate the BB value of the molecule based on its structure.
+18. Estimate lipo: Estimate the lipophilic content of the molecule.
+19. Estimate pol: Calculate the polar index of the molecule.
+20. Calculate lipo: Estimate the lipophilic content of the molecule.
 User 
 
 ================================
