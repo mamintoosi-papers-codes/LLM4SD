@@ -1,15 +1,11 @@
-## Summary of Inference Rules:
+## Concise Summary of BBBP Inference Rules:
 
-These rules establish a strong correlation between atomic composition and the probability of a molecule being BBBP (likely a specific chemical compound). The core finding is that **a molecule is highly likely to be BBBP if it contains a greater number of either Bisphenol (B) *or* Carbon (C) atoms compared to Oxygen (O) atoms.**
+These rules suggest a molecule is more likely to be BBBP (likely referring to a specific property or classification) based on its atomic composition and structure. The key indicators are:
 
-**Refined List of Rules:**
-
-1. **If the number of Bisphenol (B) atoms > number of Oxygen (O) atoms, then P(BBBP) > 0.9.**
-2. **If the number of Carbon (C) atoms > number of Oxygen (O) atoms, then P(BBBP) > 0.9.**
-
-**Rationale for Consolidation:**
-
-Rules 1 & 2 were originally presented as separate conditions based on different elements. However, both demonstrate the *same principle*: a surplus of either B or C relative to O strongly suggests the molecule is BBBP.  The original rules were redundant and have been streamlined for clarity and conciseness.
+* **BBBP Pair Presence:** The existence of a BBBP pair within the molecular structure increases likelihood.
+* **BBBP Atom Dominance:** A higher proportion of BBBP atoms compared to non-BBBP atoms increases likelihood.
+* **Initiating BBBP Atom:** The presence of a BBBP atom as the first atom in the molecule increases likelihood.
 
 
 
+**Note:** The term "BBBP" remains undefined without further context. This summary assumes it represents a specific molecular property or classification being predicted. These rules essentially describe compositional/structural features positively correlated with that property.

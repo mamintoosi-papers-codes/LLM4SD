@@ -1,25 +1,24 @@
 Task Name: bbbp
 Response from Model:
-1. Calculate log P: Logarithm of partitioning coefficient.
-2. Estimate BB: The expected BB value of the molecule based on its structure.
-3. Calculate lipophilic %: The proportion of polar and non-polar atoms in the molecule.
-4. Estimate pol: Calculate the polar index of the molecule.
-5. Calculate size: Estimate the size of the molecule.
-6. Calculate volume: Estimate the volume of the molecule.
-7. Estimate pol: Calculate the polar index of the molecule.
-8. Estimate BB: Estimate the BB value of the molecule based on its structure.
-9. Estimate lipo: Estimate the lipophilic content of the molecule.
-10. Evaluate NPS (nonpolar): Estimate the nonpolar nature of the molecule.
-11. Estimate BB: Estimate the BB value of the molecule based on its structure.
-12. Estimate pol: Calculate the polar index of the molecule.
-13. Estimate BB: Estimate the BB value of the molecule based on its structure.
-14. Estimate BB: Estimate the BB value of the molecule based on its structure.
-15. Estimate lipo: Estimate the lipophilic content of the molecule.
-16. Estimate pol: Calculate the polar index of the molecule.
-17. Estimate BB: Estimate the BB value of the molecule based on its structure.
-18. Estimate lipo: Estimate the lipophilic content of the molecule.
-19. Estimate pol: Calculate the polar index of the molecule.
-20. Calculate lipo: Estimate the lipophilic content of the molecule.
+1. Identify : Calculate log P.
+2. Assess polar/nonpolar nature : Log P (polar).
+3. Estimate bond lengths : Log V (nonpolar).
+4. Evaluate aromaticity : Estimate number of electron groups around (aromatic).
+5. Assess symmetry : Check for symmetrical about axis (symmetry).
+6. Calculate electronegativity : Estimate of chemical bond strength.
+7. Estimate electrostatic potential : Calculate electrostatic potential of a molecule.
+8. Assess steric hindrance : Estimate steric hindrance of a molecule.
+9. Estimate steric hindrance : Log S (non-polar).
+10. Assess symmetry : Check for symmetrical about axis (symmetry).
+11. Calculate electronegativity : Estimate of chemical bond strength.
+12. Assess steric hindrance : Estimate steric hindrance of a molecule.
+13. Estimate steric hindrance : Check for symmetry about axis.
+14. Calculate electronegativity : Estimate chemical bond strength.
+15. Assess electrostatic potential : Estimate electrostatic potential of a molecule.
+16. Calculate electrostatic potential : Estimate electrostatic potential of a molecule.
+17. Evaluate symmetry : Check symmetry about axis.
+18. Evaluate symmetry : Check symmetry about axis.
+19. Evaluate symmetry : Check symmetry about axis.
 User 
 
 ================================

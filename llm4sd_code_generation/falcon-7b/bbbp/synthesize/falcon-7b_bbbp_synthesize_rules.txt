@@ -1,197 +1,264 @@
-def rule_logp(mol):
+def rule55302_hb_donors1232143(mol):
     """
-    Calculates logP using RDKit.
+    Calculates the number of hydrogen bond donors in a molecule.
 
     Args:
         mol: RDKit Mol object.
 
     Returns:
-        float: LogP value.
+        int: Number of hydrogen bond donors.
     """
-    try:
-        logp = rdMolDescriptors.CalcLogP(mol)
-        return float(logp)
-    except:
-        return 0.0  # Handle potential errors by returning a default value
+    return rdMolDescriptors.CalcNumHBD(mol)
 
-def rule_bb(mol):
+def rule950021_hb_acceptor35749(mol):
     """
-    Estimates BB (brain/blood partition coefficient) using RDKit.
+    Calculates the number of hydrogen bond acceptors in a molecule.
 
     Args:
         mol: RDKit Mol object.
 
     Returns:
-        float: Estimated BB value.
+        int: Number of hydrogen bond acceptors.
     """
-    try:
-        bb = rdMolDescriptors.CalcBBB(mol)
-        return float(bb)
-    except:
-        return 0.0
+    return rdMolDescriptors.CalcNumHBA(mol)
 
-def rule_lipophilic_percent(mol):
+def rule_logp_identification(mol):
     """
-    Calculates the lipophilic percentage of the molecule.
+    Calculates the logP of a molecule.
 
     Args:
         mol: RDKit Mol object.
 
     Returns:
-        float: Lipophilic percentage.
+        float: logP value.
     """
     try:
-        lipophilic_percent = rdMolDescriptors.CalcLipophilicPercent(mol)
-        return float(lipophilic_percent)
+        return rdMolDescriptors.CalcLogP(mol)
     except:
-        return 0.0
+        return 0.0 #Handle cases where logP calculation fails
 
-def rule_polar_index(mol):
+def rule_logv_nonpolar(mol):
     """
-    Calculates the polar surface area (PSA) and returns it as the polar index.
+    Calculates the molecular weight of a molecule (proxy for size/nonpolarity).
+    """
+    try:
+        from rdkit import Chem
+        mw = Chem.rdMolDescriptors.CalcMolWt(mol)
+        return mw
+    except AttributeError:
+        # Handle the AttributeError if CalcMolWt is not available
+        # Return a default value (e.g., 0) or attempt an alternative calculation
+        return 0  # Or some other reasonable default
+    except ImportError:
+        # Handle the ImportError if rdkit is not installed
+        return 0
+
 
     Args:
         mol: RDKit Mol object.
 
     Returns:
-        float: Polar index (PSA).
+        float: Molecular weight.
     """
-    try:
-        polar_index = rdMolDescriptors.CalcPolarSurfaceArea(mol)
-        return float(polar_index)
-    except:
-        return 0.0
+    return rdMolDescriptors.CalcMolWt(mol)
 
-def rule_size(mol):
+def rule_rotatable_bonds(mol):
     """
-    Estimates the size of the molecule (number of atoms).
+    Calculates the number of rotatable bonds in a molecule.
 
     Args:
         mol: RDKit Mol object.
 
     Returns:
-        float: Size (number of atoms).
+        int: Number of rotatable bonds.
     """
-    try:
-        size = mol.GetNumAtoms()
-        return float(size)
-    except:
-        return 0.0
+    return rdMolDescriptors.CalcNumRotatableBonds(mol)
 
-def rule_volume(mol):
+def rule_aromatic_rings(mol):
     """
-    Estimates the volume of the molecule.
+    Calculates the number of aromatic rings in a molecule.
 
     Args:
         mol: RDKit Mol object.
 
     Returns:
-        float: Volume of the molecule.
+        int: Number of aromatic rings.
+    """
+    return rdMolDescriptors.CalcNumAromaticRings(mol)
+
+def rule_tpsa_symmetry(mol):
+    """
+    Calculates the topological polar surface area of a molecule.
+
+    Args:
+        mol: RDKit Mol object.
+
+    Returns:
+        float: Topological polar surface area.
+    """
+    return rdMolDescriptors.CalcTPSA(mol)
+
+def rule_heavy_atoms_electronegativity(mol):
+    """
+    Calculates the number of heavy atoms in a molecule.
+
+    Args:
+        mol: RDKit Mol object.
+
+    Returns:
+        int: Number of heavy atoms.
+    """
+    return rdMolDescriptors.CalcNumHeavyAtoms(mol)
+
+def rule7_electrostatic_potential(mol):
+    """Calculates the dipole moment of the molecule as a proxy for electrostatic potential.
+    A higher dipole moment generally indicates a stronger electrostatic potential.
     """
     try:
-        volume = rdMolDescriptors.CalcMolVolume(mol)
-        return float(volume)
+        AllChem.EmbedMolecule(mol, AllChem.ETKDGv3())
+        dipole = AllChem.GetDipoleMoment(mol)
+        return dipole
+    except:
+        return 0.0  # Return 0 if embedding or dipole calculation fails
+
+def rule8_steric_hindrance1(mol):
+    """Calculates the molecular weight as a proxy for steric hindrance. Larger molecules generally exhibit more steric hindrance."""
+    return rdMolDescriptors.CalcExactMolWt(mol)
+
+def rule8_steric_hindrance2(mol):
+    """Calculates the number of rotatable bonds as an indicator of steric hindrance."""
+    return rdMolDescriptors.CalcNumRotatableBonds(mol)
+
+def rule9_log_s_nonpolar(mol):
+    """Estimates LogS using RDKit's descriptor calculation.  This is a basic attempt at LogS 
+    and assumes non-polar character (can be improved with more sophisticated methods)."""
+    try:
+      logS = rdMolDescriptors.CalcALOGP(mol)
+      return logS
+    except:
+      return 0.0 # return 0 if calculation fails
+
+def rule10_symmetry1(mol):
+    """Calculates the number of symmetry elements using RDKit's descriptors (a proxy for symmetry)."""
+    try:
+        symmetry = rdMolDescriptors.CalcSymmetryCount(mol)
+        return symmetry
+    except:
+        return 0
+
+def rule10_symmetry2(mol):
+    """Calculates the number of conformers and returns the maximum similarity (a proxy for symmetry)"""
+    try:
+        conformers = AllChem.EmbedMultipleConfs(mol, numConfs=10) #generate 10 conformers.
+        max_similarity = 0.0
+        for i in range(len(conformers)):
+            for j in range(i + 1, len(conformers)):
+                similarity = Chem.MolToSmiles(conformers[i]) == Chem.MolToSmiles(conformers[j])
+                if similarity:
+                    max_similarity = 1.0
+                    break
+        return max_similarity
     except:
         return 0.0
 
-def rule7_polar_index(mol):
-    """Calculates the polar surface area (PSA) of a molecule."""
+def rule11_electronegativity(mol):
+    """Estimates the average electronegativity of the atoms in the molecule."""
     try:
-        return Descriptors.TPSA(mol)
+        atoms = mol.GetAtoms()
+        total_electronegativity = sum([Chem.GetPeriodicTable().GetElementProperties(atom.GetAtomicNumber())['Electronegativity'] for atom in atoms])
+        return total_electronegativity / len(atoms)
     except:
         return 0.0
 
-def rule8_bb_value1(mol):
-    """Estimates BB value based on logP."""
+def rule12_steric_hindrance3(mol):
+    """Calculates the molecular surface area as a measure of steric hindrance."""
     try:
-        logp = Descriptors.LogP(mol)
-        return abs(logp)
+        AllChem.EmbedMolecule(mol, AllChem.ETKDGv3())
+        surface_area = rdMolDescriptors.CalcSurfaceArea(mol)
+        return surface_area
     except:
         return 0.0
 
-def rule9_lipo_content1(mol):
-    """Estimates lipophilic content using LogP."""
+def rule13_symmetry_axis(mol):
+    """Estimates the number of atoms with tetrahedral geometry."""
     try:
-        return Descriptors.LogP(mol)
+        tetrahedral_count = 0
+        for atom in mol.GetAtoms():
+            if atom.GetDegree() == 4:
+                tetrahedral_count += 1
+        return tetrahedral_count
+    except:
+        return 0
+
+def rule14_bond_strength(mol):
+    """Estimates the average bond order in the molecule."""
+    try:
+        total_bond_order = 0
+        bond_count = 0
+        for bond in mol.GetBonds():
+            total_bond_order += bond.GetBondTypeAsDouble()
+            bond_count += 1
+        return total_bond_order / bond_count
     except:
         return 0.0
 
-def rule10_nps_estimate1(mol):
-    """Estimates nonpolar surface area (NPSA)."""
+def rule15_electrostatic_potential(mol):
+    """
+    Estimates electrostatic potential of a molecule.  Uses dipole moment as a proxy.
+    """
     try:
-        return Descriptors.CalculateNPSA(mol)
+        from rdkit import Chem
+        dipole = Chem.Descriptors.CalcDipoleMoment(mol)
+        if dipole is None:
+            return 0.0  # Handle cases where dipole cannot be calculated.
+        return abs(dipole[0])  # Return magnitude of dipole
     except:
         return 0.0
 
-def rule11_bb_value2(mol):
-    """Estimates BB value using molecular weight."""
-    try:
-        return Descriptors.MolWt(mol)
-    except:
-        return 0.0
 
-def rule12_polar_index2(mol):
-    """Calculates the polar surface area (PSA) of a molecule."""
+def rule16_electrostatic_potential(mol):
+    """
+    Estimates electrostatic potential of a molecule. Uses partial charges as a proxy (sum of absolute values).
+    """
     try:
-        return Descriptors.TPSA(mol)
+      partial_charges = rdMolDescriptors.GetPartialCharges(mol)
+      if partial_charges is None:
+          return 0.0
+      return sum(abs(charge) for charge in partial_charges)
     except:
-        return 0.0
+        return 0.0 #Handle cases where partial charges cannot be calculated.
 
-def rule13_bb_value3(mol):
-    """Estimates BB value based on number of rotatable bonds."""
+def rule17_symmetry_axis(mol):
+    """
+    Checks for symmetry about an axis by calculating the number of symmetry operations.
+    Returns the number of symmetry operations as a proxy for symmetry.
+    """
     try:
-        return Descriptors.NumRotatableBonds(mol)
+        symmetry_ops = rdMolDescriptors.GetSymmetryOperations(mol)
+        return len(symmetry_ops)
     except:
-        return 0.0
+      return 0 #Handle cases where symmetry operations cannot be calculated.
 
-def rule14_bb_value4(mol):
-    """Estimates BB value using number of rings."""
+def rule18_symmetry_axis(mol):
+    """
+    Checks for symmetry about an axis by checking if the molecule is chiral. 
+    If chiral, returns 0. Otherwise returns 1.
+    """
     try:
-        return Descriptors.RingCount(mol)
+        if rdMolDescriptors.IsChiral(mol):
+            return 0
+        else:
+            return 1
     except:
-        return 0.0
+        return 0 #Handle error
 
-def rule15_lipo_content2(mol):
-    """Estimates lipophilic content using cLogP."""
+def rule19_symmetry_axis(mol):
+    """
+    Checks for symmetry about an axis by calculating the number of rotatable bonds. 
+    A lower number suggests greater symmetry.
+    """
     try:
-        return Descriptors.cLogP(mol)
+        rotatable_bonds = rdMolDescriptors.GetNumRotatableBonds(mol)
+        return rotatable_bonds #Return the number
     except:
-        return 0.0
-
-def rule16_estimate_pol(mol):
-    """Calculates the polar index of the molecule."""
-    try:
-        return rdMolDescriptors.CalcPolarSurfaceArea(mol)
-    except:
-        return 0.0
-
-def rule17_estimate_bb(mol):
-    """Estimates the BB value (logP) of the molecule."""
-    try:
-        from rdkit.Chem.Lipinski import rdLipinski
-        return rdLipinski.rdLogPDescriptor(mol)
-    except:
-        return 0.0
-
-def rule18_estimate_lipo(mol):
-    """Estimates the lipophilic content of the molecule (logP)."""
-    try:
-        from rdkit.Chem.Lipinski import rdLipinski
-        return rdLipinski.rdLogPDescriptor(mol)
-    except:
-        return 0.0
-
-def rule19_estimate_pol(mol):
-    """Calculates the polar index of the molecule."""
-    try:
-        return rdMolDescriptors.CalcPolarSurfaceArea(mol)
-    except:
-        return 0.0
-
-def rule20_calculate_lipo(mol):
-    """Estimates the lipophilic content of the molecule (logP)."""
-    try:
-        from rdkit.Chem.Lipinski import rdLipinski
-        return rdLipinski.rdLogPDescriptor(mol)
-    except:
-        return 0.0
+        return 0 #Handle error

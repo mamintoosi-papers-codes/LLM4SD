@@ -1,3 +1,4 @@
-1) If the number of atoms of Oxygen (O) in the molecule is greater than the number of the atom of Bisphenol (B) in the molecule, then the probability that the molecule is BBBP is greater than 0.9.
-2) If the number of atoms of Bisphenol (B) in the molecule is greater than the number of the atoms of Oxygen (O) in the molecule, then the probability that the molecule is BBBP is greater than 0.9.
-3) If the number of carbon atoms (C) in the molecule is greater than the number of Oxygen (O) atoms, then the probability that the molecule is BBBP is greater than 0.9.
+1) If the structure of the molecule contains a BBBP pair, it is more likely to be BBBP. 
+2) If the first atom in the molecule is a BBBP atom, it is more likely to be BBBP. 
+3) If the number of BBBP atoms in the molecule is greater than the number of non-BBBP atoms, it is more likely to be BBBP.
+User 

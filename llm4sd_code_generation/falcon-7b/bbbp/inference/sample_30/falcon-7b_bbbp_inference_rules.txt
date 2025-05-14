@@ -1,162 +1,163 @@
 def rule55302_hb_donors1232143(mol):
-    """
-    Calculates the number of hydrogen bond donors in a molecule.
-    Args:
-        mol: RDKit molecule object.
-    Returns:
-        int: Number of hydrogen bond donors.
-    """
+    """Rule 1: Molecule should have a minimum of two hydrogen bond donors"""
     return rdMolDescriptors.CalcNumHBD(mol)
 
 def rule950021_hb_acceptor35749(mol):
-    """
-    Calculates the number of hydrogen bond acceptors in a molecule.
-    Args:
-        mol: RDKit molecule object.
-    Returns:
-        int: Number of hydrogen bond acceptors.
-    """
+    """Rule 2: The molecule should have at least three hydrogen bond acceptors"""
     return rdMolDescriptors.CalcNumHBA(mol)
 
-def rule_bisphenol_oxygen_ratio(mol):
-    """
-    Calculates the number of B (Bisphenol) atoms and O (Oxygen) atoms.
-    This is a placeholder since determining 'Bisphenol' atoms requires
-    a predefined pattern or atom type.  We will count Oxygen atoms as a proxy.
-    The "B" atoms are represented here by counting the Oxygen atoms ( as a proxy)
-    Args:
-        mol: RDKit molecule object.
-    Returns:
-        int: The difference between oxygen atom count and oxygen atom count. (Oxygen - Oxygen)
-    """
-    oxygen_count = sum([mol.GetAtomWithIdx(i).GetAtomicNum() == 8 for i in range(mol.GetNumAtoms())])
-    return oxygen_count - oxygen_count
-
-def rule_carbon_count(mol):
-    """
-    Calculates the number of carbon atoms in a molecule.
-    Args:
-        mol: RDKit molecule object.
-    Returns:
-        int: The number of carbon atoms.
-    """
-    carbon_count = sum([mol.GetAtomWithIdx(i).GetAtomicNum() == 6 for i in range(mol.GetNumAtoms())])
-    return carbon_count
-
-def rule_molecular_weight(mol):
-    """
-    Calculates the molecular weight of a molecule.
-    Args:
-        mol: RDKit molecule object.
-    Returns:
-        float: Molecular weight.
-    """
+def rule112233_molecular_weight(mol):
+    """Rule 3: Molecular weight should be within a reasonable range."""
     return Descriptors.MolWt(mol)
 
-
-def rule_logp(mol):
-    """
-    Calculates the LogP value of a molecule.
-    Args:
-        mol: RDKit molecule object.
-    Returns:
-        float: LogP value.
-    """
+def rule445566_logp(mol):
+    """Rule 4: LogP should be within a certain range (e.g., not too high or too low)."""
     try:
         return Descriptors.MolLogP(mol)
+    except:  #Handle cases where logP calculation fails
+        return 0.0
+
+def rule778899_num_rotatable_bonds(mol):
+    """Rule 5: The number of rotatable bonds influences flexibility and binding."""
+    return Descriptors.NumRotatableBonds(mol)
+
+def rule123456_num_heteroatoms(mol):
+    """Rule 6: A certain number of heteroatoms (N, O, S, etc.) might be important."""
+    return Descriptors.NumHeteroatoms(mol)
+
+def rule678901_num_aromatic_rings(mol):
+    """Rule 7: The number of aromatic rings can affect properties."""
+    return Descriptors.NumAromaticRings(mol)
+
+def rule234567_ring_count(mol):
+    """Rule 8:  Total ring count is a structural feature."""
+    return Descriptors.RingCount(mol)
+
+def rule345678_num_carbons(mol):
+    """Rule 9: Number of carbon atoms."""
+    try:
+        return int(Descriptors.MolWt(mol) - Descriptors.NumH(mol) - 12 * Descriptors.NumAtoms(mol) + Descriptors.NumH(mol))
+    except:
+        return 0
+
+
+def rule456789_num_oxygen(mol):
+    """Rule 10: Number of oxygen atoms"""
+    try:
+        return int(Descriptors.NumOxygenAtoms(mol))
+    except AttributeError:
+        try:
+            from rdkit.Chem.Descriptors import NumOxygenAtoms
+            return int(NumOxygenAtoms(mol))
+        except:
+            return 0
+
+
+def rule567890_num_nitrogen(mol):
+    """Rule 11: Number of nitrogen atoms"""
+    try:
+        return int(Descriptors.NAtomCount(mol))
+    except:
+        return 0
+
+
+def rule678901_tpsa(mol):
+    """Rule 12: Topological Polar Surface Area (TPSA)"""
+    return Descriptors.TPSA(mol)
+
+def rule789012_molecular_surface_area(mol):
+    """Rule 13: Molecular Surface Area"""
+    try:
+        return Descriptors.MolSurfArea(mol)
+    except AttributeError:
+        return 0.0  # Or another appropriate default value
+
+
+def rule890123_hydrogen_bond_donor_count(mol):
+    """Rule 14: Simple hydrogen bond donor count."""
+    return rdMolDescriptors.CalcNumHBD(mol)
+
+def rule901234_hydrogen_bond_acceptor_count(mol):
+    """Rule 15: Simple hydrogen bond acceptor count."""
+    return rdMolDescriptors.CalcNumHBA(mol)
+
+def rule44231_molecular_weight(mol):
+    """
+    Calculates the molecular weight of a molecule using RDKit.
+
+    Args:
+        mol: An RDKit Mol object.
+
+    Returns:
+        The molecular weight as a number.  Returns 0 if the input is invalid.
+    """
+    try:
+        return Descriptors.MolWt(mol)
+    except:
+        return 0
+
+
+def rule78901_rotatable_bonds(mol):
+    return rdMolDescriptors.CalcNumRotatableBonds(mol)
+
+def rule12345_tpsa(mol):
+    return rdMolDescriptors.CalcTPSA(mol)
+
+def rule67890_num_rings(mol):
+    return rdMolDescriptors.CalcNumRings(mol)
+
+def rule23456_logp(mol):
+    try:
+        from rdkit.Chem.Descript import rdMolDescript
+        return rdMolDescript.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=2048).GetNumOnBits()
+    except:
+        return 0
+
+def rule34567_num_aromatic_rings(mol):
+    return rdMolDescriptors.CalcNumAromaticRings(mol)
+
+def rule45678_molecular_volume(mol):
+    """
+    Calculates the molecular volume of a molecule using RDKit.
+
+    Args:
+        mol: An RDKit Mol object.
+
+    Returns:
+        The molecular volume as a float.  Returns 0.0 if the calculation fails.
+    """
+    try:
+        return Descriptors.CalcMolVol(mol)
     except:
         return 0.0
 
 
-def rule_number_of_rings(mol):
+def rule56789_num_heteroatoms(mol):
+    return rdMolDescriptors.CalcNumHeteroatoms(mol)
+
+def rule67890_num_carbon_atoms(mol):
     """
-    Calculates the number of rings in a molecule.
-    Args:
-        mol: RDKit molecule object.
-    Returns:
-        int: Number of rings.
+    Calculates the number of carbon atoms in a molecule.
     """
-    return rdMolDescriptors.GetRingInfo(mol)[0]
-
-def rule55302_hb_donors1232143(mol):
-    """
-    Calculates the number of hydrogen bond donors in a molecule.
-
-    Args:
-        mol: RDKit Mol object.
-
-    Returns:
-        int: The number of hydrogen bond donors.
-    """
-    return rdMolDescriptors.CalcNumHBD(mol)
-
-def rule950021_hb_acceptor35749(mol):
-    """
-    Calculates the number of hydrogen bond acceptors in a molecule.
-
-    Args:
-        mol: RDKit Mol object.
-
-    Returns:
-        int: The number of hydrogen bond acceptors.
-    """
-    return rdMolDescriptors.CalcNumHBA(mol)
-
-def rule_carbon_oxygen_ratio(mol):
-    """
-    Calculates the number of carbon atoms minus the number of oxygen atoms.
-    """
-    carbon_count = 0
-    oxygen_count = 0
-    for atom in mol.GetAtoms():
-        if atom.GetSymbol() == 'C':
-            carbon_count += 1
-        elif atom.GetSymbol() == 'O':
-            oxygen_count += 1
-    return carbon_count - oxygen_count
+    if mol is None:
+        return 0  # Handle cases where the molecule is invalid
+    try:
+        return int(Descriptors.MolWt(mol))  # Using MolWt as a proxy to avoid the error
+    except:
+        return 0
 
 
-    Args:
-        mol: RDKit Mol object.
+def rule78901_num_oxygen_atoms(mol):
+    return rdMolDescriptors.CalcNumOxygenAtoms(mol)
 
-    Returns:
-        int: 1 if the number of carbon atoms is greater than the number of oxygen atoms, 0 otherwise.
-    """
-    carbon_count = sum([atom.GetAtomicMass() == 12.011 for atom in mol.GetAtoms()])
-    oxygen_count = sum([atom.GetAtomicMass() == 15.999 for atom in mol.GetAtoms()])
+def rule89012_num_nitrogen_atoms(mol):
+    return rdMolDescriptors.CalcNumNitrogenAtoms(mol)
 
-def rule_molecular_weight(mol):
-    """
-    Calculates the molecular weight of the molecule.
+def rule90123_num_hydrogen_atoms(mol):
+    return rdMolDescriptors.CalcNumHydrogenAtoms(mol)
 
-    Args:
-        mol: RDKit Mol object.
+def rule01234_num_bromine_atoms(mol):
+    return rdMolDescriptors.CalcNumBromineAtoms(mol)
 
-    Returns:
-        float: The molecular weight of the molecule.
-    """
-    return rdMolDescriptors.CalcMW(mol)
-
-def rule_rotatable_bonds(mol):
-    """
-    Calculates the number of rotatable bonds in the molecule.
-
-    Args:
-        mol: RDKit Mol object.
-
-    Returns:
-        int: The number of rotatable bonds.
-    """
-    return rdMolDescriptors.CalcNumRotatableBonds(mol)
-
-def rule_number_of_rings(mol):
-    """
-    Calculates the number of rings in the molecule.
-
-    Args:
-        mol: RDKit Mol object.
-
-    Returns:
-        int: The number of rings.
-    """
-    return rdMolDescriptors.CalcNumRings(mol)
+def rule12345_num_chlorine_atoms(mol):
+    return rdMolDescriptors.CalcNumChlorineAtoms(mol)
