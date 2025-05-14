@@ -1,0 +1,197 @@
+def rule_logp(mol):
+    """
+    Calculates logP using RDKit.
+
+    Args:
+        mol: RDKit Mol object.
+
+    Returns:
+        float: LogP value.
+    """
+    try:
+        logp = rdMolDescriptors.CalcLogP(mol)
+        return float(logp)
+    except:
+        return 0.0  # Handle potential errors by returning a default value
+
+def rule_bb(mol):
+    """
+    Estimates BB (brain/blood partition coefficient) using RDKit.
+
+    Args:
+        mol: RDKit Mol object.
+
+    Returns:
+        float: Estimated BB value.
+    """
+    try:
+        bb = rdMolDescriptors.CalcBBB(mol)
+        return float(bb)
+    except:
+        return 0.0
+
+def rule_lipophilic_percent(mol):
+    """
+    Calculates the lipophilic percentage of the molecule.
+
+    Args:
+        mol: RDKit Mol object.
+
+    Returns:
+        float: Lipophilic percentage.
+    """
+    try:
+        lipophilic_percent = rdMolDescriptors.CalcLipophilicPercent(mol)
+        return float(lipophilic_percent)
+    except:
+        return 0.0
+
+def rule_polar_index(mol):
+    """
+    Calculates the polar surface area (PSA) and returns it as the polar index.
+
+    Args:
+        mol: RDKit Mol object.
+
+    Returns:
+        float: Polar index (PSA).
+    """
+    try:
+        polar_index = rdMolDescriptors.CalcPolarSurfaceArea(mol)
+        return float(polar_index)
+    except:
+        return 0.0
+
+def rule_size(mol):
+    """
+    Estimates the size of the molecule (number of atoms).
+
+    Args:
+        mol: RDKit Mol object.
+
+    Returns:
+        float: Size (number of atoms).
+    """
+    try:
+        size = mol.GetNumAtoms()
+        return float(size)
+    except:
+        return 0.0
+
+def rule_volume(mol):
+    """
+    Estimates the volume of the molecule.
+
+    Args:
+        mol: RDKit Mol object.
+
+    Returns:
+        float: Volume of the molecule.
+    """
+    try:
+        volume = rdMolDescriptors.CalcMolVolume(mol)
+        return float(volume)
+    except:
+        return 0.0
+
+def rule7_polar_index(mol):
+    """Calculates the polar surface area (PSA) of a molecule."""
+    try:
+        return Descriptors.TPSA(mol)
+    except:
+        return 0.0
+
+def rule8_bb_value1(mol):
+    """Estimates BB value based on logP."""
+    try:
+        logp = Descriptors.LogP(mol)
+        return abs(logp)
+    except:
+        return 0.0
+
+def rule9_lipo_content1(mol):
+    """Estimates lipophilic content using LogP."""
+    try:
+        return Descriptors.LogP(mol)
+    except:
+        return 0.0
+
+def rule10_nps_estimate1(mol):
+    """Estimates nonpolar surface area (NPSA)."""
+    try:
+        return Descriptors.CalculateNPSA(mol)
+    except:
+        return 0.0
+
+def rule11_bb_value2(mol):
+    """Estimates BB value using molecular weight."""
+    try:
+        return Descriptors.MolWt(mol)
+    except:
+        return 0.0
+
+def rule12_polar_index2(mol):
+    """Calculates the polar surface area (PSA) of a molecule."""
+    try:
+        return Descriptors.TPSA(mol)
+    except:
+        return 0.0
+
+def rule13_bb_value3(mol):
+    """Estimates BB value based on number of rotatable bonds."""
+    try:
+        return Descriptors.NumRotatableBonds(mol)
+    except:
+        return 0.0
+
+def rule14_bb_value4(mol):
+    """Estimates BB value using number of rings."""
+    try:
+        return Descriptors.RingCount(mol)
+    except:
+        return 0.0
+
+def rule15_lipo_content2(mol):
+    """Estimates lipophilic content using cLogP."""
+    try:
+        return Descriptors.cLogP(mol)
+    except:
+        return 0.0
+
+def rule16_estimate_pol(mol):
+    """Calculates the polar index of the molecule."""
+    try:
+        return rdMolDescriptors.CalcPolarSurfaceArea(mol)
+    except:
+        return 0.0
+
+def rule17_estimate_bb(mol):
+    """Estimates the BB value (logP) of the molecule."""
+    try:
+        from rdkit.Chem.Lipinski import rdLipinski
+        return rdLipinski.rdLogPDescriptor(mol)
+    except:
+        return 0.0
+
+def rule18_estimate_lipo(mol):
+    """Estimates the lipophilic content of the molecule (logP)."""
+    try:
+        from rdkit.Chem.Lipinski import rdLipinski
+        return rdLipinski.rdLogPDescriptor(mol)
+    except:
+        return 0.0
+
+def rule19_estimate_pol(mol):
+    """Calculates the polar index of the molecule."""
+    try:
+        return rdMolDescriptors.CalcPolarSurfaceArea(mol)
+    except:
+        return 0.0
+
+def rule20_calculate_lipo(mol):
+    """Estimates the lipophilic content of the molecule (logP)."""
+    try:
+        from rdkit.Chem.Lipinski import rdLipinski
+        return rdLipinski.rdLogPDescriptor(mol)
+    except:
+        return 0.0
