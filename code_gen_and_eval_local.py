@@ -516,7 +516,7 @@ def get_synthesize_inference_code():
 
 if __name__ == '__main__':
     
-    args.model = MODEL_MAPPING.get(args.model, args.model)
+    # args.model = MODEL_MAPPING.get(args.model, args.model)
     if args.knowledge_type == 'synthesize':
         syn_file_path = get_synthesize_file_path()
         with open(syn_file_path, 'r') as f:

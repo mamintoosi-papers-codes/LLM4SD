@@ -5,7 +5,7 @@ import time
 import ollama
 
 # Fixed summarization model
-OLLAMA_SUMMARY_MODEL = "gemma3:27b"
+OLLAMA_SUMMARY_MODEL = "mistral:7b"#"gemma3:27b"
 
 def load_inference_rules(input_folder, dataset, model):
     """Load inferred knowledge rules from saved files."""
@@ -22,7 +22,7 @@ def load_inference_rules(input_folder, dataset, model):
     return rules
 
 def summarize_rules_with_gemma(rules):
-    """Use Gemma 3:27B for summarization."""
+    """Use Ollama for summarization."""
     formatted_prompt = (
         "You are an advanced AI specializing in scientific summarization. "
         "Please review the following inference rules, eliminate duplicates, and return a concise summary:\n\n"
@@ -37,7 +37,7 @@ def summarize_rules_with_gemma(rules):
     return summarized_rules
 
 def main():
-    print("🔹 Step 4: Summarizing Inference Rules Locally using Gemma 3:27B...")
+    print(f"🔹 Step 4: Summarizing Inference Rules Locally using Ollama {OLLAMA_SUMMARY_MODEL} ...")
 
     rules = load_inference_rules(args.input_model_folder, args.dataset, args.input_model_folder)
     summarized_rules = summarize_rules_with_gemma(rules)

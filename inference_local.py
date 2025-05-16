@@ -16,7 +16,7 @@ MODEL_MAPPING = {
 def get_system_prompt():
     """Define system prompt format based on model type."""
     model = args.model.lower()
-    if model in ['falcon-7b', 'falcon-40b']:
+    if model in ['falcon-7b', 'falcon-40b', 'mistral-7b']:
         system_prompt = "{instruction}\n"
     elif model in ["galactica-6.7b", "galactica-30b"]:
         system_prompt = ("Below is an instruction that describes a task. "
