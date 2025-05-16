@@ -105,7 +105,7 @@ def load_data(which='train'):
 
 
 # Fixed local model for code generation
-OLLAMA_CODE_GEN_MODEL = "gemma3:27b"
+OLLAMA_CODE_GEN_MODEL = "mistral:7b"
 
 def auto_gen_code(prompt):
     """Automatically generate Python code using Ollama's local model."""
