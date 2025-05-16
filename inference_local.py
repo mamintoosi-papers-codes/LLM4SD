@@ -4,6 +4,15 @@ import json
 import time
 import ollama
 
+# Model name mapping for Ollama compatibility
+MODEL_MAPPING = {
+    "mistral-7b": "mistral:7b",
+    "falcon-7b": "falcon:7b",
+    "falcon-40b": "falcon:40b",
+    "galactica-6.7b": "galactica:6.7b",
+    "galactica-30b": "galactica:30b"
+}
+
 def get_system_prompt():
     """Define system prompt format based on model type."""
     model = args.model.lower()
@@ -29,17 +38,8 @@ def get_inference_prompt():
 def get_model_response(model, instruction):
     """Use Ollama's local model to generate responses."""
     print(f"Querying Ollama Model: {model}")
-    
-    # Model name mapping for Ollama compatibility
-    model_mapping = {
-        "falcon-7b": "falcon:7b",
-        "falcon-40b": "falcon:40b",
-        "galactica-6.7b": "galactica:6.7b",
-        "galactica-30b": "galactica:30b"
-    }
-
-    # Use mapped name if available
-    ollama_model = model_mapping.get(args.model, args.model)
+    # Apply model name mapping
+    ollama_model = MODEL_MAPPING.get(model, model)
 
     response = ollama.chat(model=ollama_model, messages=[{"role": "user", "content": instruction.strip()}])
 

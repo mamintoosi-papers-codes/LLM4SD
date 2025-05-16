@@ -4,6 +4,15 @@ import json
 import time
 import ollama
 
+# Model name mapping for Ollama compatibility
+MODEL_MAPPING = {
+    "mistral-7b": "mistral:7b",
+    "falcon-7b": "falcon:7b",
+    "falcon-40b": "falcon:40b",
+    "galactica-6.7b": "galactica:6.7b",
+    "galactica-30b": "galactica:30b"
+}
+
 def get_synthesize_prompt():
     """
     Read prompt json file to load prompt for the task, return a task name list and a prompt list
@@ -29,23 +38,24 @@ def get_synthesize_prompt():
 
     return task_list, pk_prompt_list
 
-
 def get_pk_model_response(model, pk_prompt_list):
     """
-    Use Ollama's local Falcon-7B model for generating responses.
+    Use Ollama's local model for generating responses.
     """
+    # Apply model name mapping
+    ollama_model = MODEL_MAPPING.get(model, model)
+
     response_list = []
     for pk_prompt in pk_prompt_list:
-        print(f"Querying Ollama Model: {model}")
+        print(f"Querying Ollama Model: {ollama_model}")
         
-        response = ollama.chat(model="falcon:7b", messages=[{"role": "user", "content": pk_prompt.strip()}])
+        response = ollama.chat(model=ollama_model, messages=[{"role": "user", "content": pk_prompt.strip()}])
         generated_text = response["message"]["content"]
         
         print(generated_text)
         response_list.append(generated_text)
 
     return response_list
-
 
 def main():
     task_list, pk_prompt_list = get_synthesize_prompt()
@@ -66,7 +76,6 @@ def main():
             f.write('Response from Model:\n')
             f.write(response_list[i])
             f.write("\n\n================================\n\n")
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

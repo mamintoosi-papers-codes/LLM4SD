@@ -1,4 +1,4 @@
-import openai
+# import openai
 import time
 import os
 import json
@@ -27,6 +27,15 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import roc_auc_score, mean_absolute_error
+
+# Model name mapping for Ollama compatibility
+MODEL_MAPPING = {
+    "mistral-7b": "mistral:7b",
+    "falcon-7b": "falcon:7b",
+    "falcon-40b": "falcon:40b",
+    "galactica-6.7b": "galactica:6.7b",
+    "galactica-30b": "galactica:30b"
+}
 
 import sys
 sys.modules['__main__'].__spec__ = None
@@ -506,6 +515,8 @@ def get_synthesize_inference_code():
 
 
 if __name__ == '__main__':
+    
+    args.model = MODEL_MAPPING.get(args.model, args.model)
     if args.knowledge_type == 'synthesize':
         syn_file_path = get_synthesize_file_path()
         with open(syn_file_path, 'r') as f:
